@@ -14,7 +14,7 @@ class KurierArticle(BaseArticle):
     magazine = 'kurier'
 
     def set_meta_data(self):        
-        self.article_id = re.search('[0-9]+', self.url).group()
+        self.article_id = re.search('[0-9]+$', self.url).group()       
 
         # get published year and month to create folder hierarchy        
         published_date = self.soup.find('div', {'class': 'article-header-intro-right'})
@@ -39,7 +39,7 @@ class KurierArticle(BaseArticle):
     
 
 def main():
-    #url = 'https://kurier.at/wirtschaft/wir-haben-uns-mit-den-sanktionen-selbst-ins-knie-geschossen/400521760'
+    #url = "https://kurier.at/chronik/oesterreich/86-jaehrige-zog-dieb-aus-ihrem-haus/400619033"
     url = sys.stdin.readline()
     article = KurierArticle(url)
     datadoc = article.build_datadoc()
