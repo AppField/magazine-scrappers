@@ -13,6 +13,7 @@ class SeleniumNewsfeed():
     THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
     directory = ''    
     links = [] #array of articles links.Needs to be filled in query_newsfeed function()
+    browser = None
 
     def __init__(self, url):  
         self.last_url_dirname = os.path.join(self.THIS_FOLDER, self.directory, 'last_url.txt')
@@ -24,26 +25,19 @@ class SeleniumNewsfeed():
     def get_soup(self, url):
         options = webdriver.FirefoxOptions()
         options.headless = True
-        browser = webdriver.Firefox(options = options)
-        browser.get(url)
+        self.browser = webdriver.Firefox(options = options)
+        self.browser.get(url)
 
-        # Wait 10 seconds for page to load
-        timeout = 10
-      
-        browser.find_element_by_class_name('privacywall-overview').click()    
-        print('PRIVACY CLICKED')
+        self.browser_preparations()
+
+        soup = BeautifulSoup(self.browser.page_source, 'html.parser')
+        self.browser.quit()
         
-        try:
-            # This is not working. An exception is always thrown
-            WebDriverWait(browser, timeout).until(EC.visibility_of_any_elements_located((By.CSS_SELECTOR, '.chronological')))
-            
-            print('WEBDRIVERWAIT PASSED')
-        except:
-            print("Timed out waiting for page to load")
-            browser.quit()
-        
-        print('RETURN SOUP')
-        return BeautifulSoup(browser.page_source, 'html.parser')
+        return soup
+
+    ## Perform action which are neccessary to access the page (like clicking a privacywall button)
+    def browser_preparations(self):
+        pass
 
     def query_newsfeed(self):
         pass

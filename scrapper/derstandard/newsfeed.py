@@ -11,14 +11,19 @@ class DerStandardNewsfeed(SeleniumNewsfeed):
     directory= 'derstandard'
     
     def query_newsfeed(self):
-        #top_topics = self.soup.find('section', {'class': 'topTopics'})
         container = self.soup.find('div', { 'class': 'chronological'})    
-        print(self.soup)
-        print(container)
-        #articles = container.find_all('article')
+        
+        articles = container.find_all('article')
 
-        #self.links = [ '{0}{1}'.format(self.url, article['href'].strip()) for article in articles ]
+        base_url = "https://www.derstandard.at"
 
+        for article in articles:
+            href = article.find('a')['href'].strip()
+            self.links.append('{0}{1}'.format(base_url, href) if href[0] == "/" else href)
+
+
+    def browser_preparations(self):
+        self.browser.find_element_by_class_name('js-privacywall-agree').click()
         
 
 def main():
