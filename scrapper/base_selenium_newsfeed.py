@@ -32,8 +32,9 @@ class SeleniumNewsfeed():
       
         browser.find_element_by_class_name('privacywall-overview').click()    
         print('PRIVACY CLICKED')
-
+        
         try:
+            # This is not working. An exception is always thrown
             WebDriverWait(browser, timeout).until(EC.visibility_of_any_elements_located((By.CSS_SELECTOR, '.chronological')))
             
             print('WEBDRIVERWAIT PASSED')
