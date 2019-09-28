@@ -24,8 +24,8 @@ class DiePresseArticle(BaseArticle):
         self.article_modified = str(datetime.strptime(datestring, "%d.%m.%Y um %H:%M"))
 
 def main():
-    #url = sys.stdin.readline()    
-    url = "https://www.diepresse.com/5697555/risse-an-einigen-boeing-737-entdeckt"
+    url = sys.stdin.readline()    
+    #url = "https://www.diepresse.com/5697555/risse-an-einigen-boeing-737-entdeckt"
     article = DiePresseArticle(url)
     datadoc = article.build_datadoc()
     print(json.dumps(datadoc))
