@@ -28,17 +28,17 @@ class BaseArticle():
 
     def build_datadoc(self):     
 
-        article_published = self.article_published[:7]
+        article_published = self.article_published[:7].strip()
      
         # Replace colon with %3A due to HDFS not allowing filenames with colons
-        article_modified = self.article_modified.replace(':', '%3A')
+        article_modified = self.article_modified.replace(':', '%3A').strip()
 
         if self.article_id != None:
             return {
-                'id': self.article_id,
+                'id': self.article_id.strip(),
                 'magazine': self.magazine,
                 "directory": '{0}/{1}'.format(self.magazine, '/'.join(article_published.split('-'))),
-                "filename": '{0}_{1}.json'.format(self.article_id, article_modified),
+                "filename": '{0}_{1}.json'.format(self.article_id.strip(), article_modified),
                 'content': str(self.soup)
             }
         else:
