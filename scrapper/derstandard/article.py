@@ -11,7 +11,7 @@ sys.path.append(os.path.abspath(os.path.join(
 from base_selenium_article import BaseSeleniumArticle
 
 class DerStandardArticle(BaseSeleniumArticle):
-    magazine = 'krone'
+    magazine = 'derstandard'
 
     def set_meta_data(self):
         self.article_id = re.search('[0-9]+', self.url).group()
