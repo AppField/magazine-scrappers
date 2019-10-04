@@ -16,6 +16,7 @@ def main():
     file = open(filepath, 'a+')
 
     file.write(url)
+    file.write('\n')
     
     file.close()
 
