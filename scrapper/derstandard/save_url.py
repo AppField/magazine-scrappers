@@ -1,12 +1,17 @@
 import sys
 import os
+from datetime import datetime
 
 def main():    
     url = sys.stdin.readline()    
         
     path = os.path.dirname(os.path.abspath(__file__))
     
-    filepath = os.path.join(path, 'article-urls.txt')
+    date = datetime.now().strftime("%Y-%m-%d")
+
+    filename = "urls/{0}-article-urls.txt".format(date)
+
+    filepath = os.path.join(path, filename)
 
     file = open(filepath, 'a+')
 
